@@ -1,0 +1,45 @@
+logs/
+__pycache__/
+*.pyc
+*.pyo
+*.png
+*.pdf
+*.bam
+*.bai
+*.vcf
+*.vcf.gz
+*.tbi
+*.fa
+*.fasta
+*.fai
+*.gtf
+*.bed
+# Data tables are ignored only where runs write them. A CSV under tests/ or
+# docs/ is a fixture or an example and must be committed.
+/*.csv
+results/**/*.csv
+work/**/*.csv
+*.bak*
+TestViewer/
+*.zip
+*.diff
+# A stray `main` at the repository root (a mistyped `git checkout main` output
+# file, not a branch). Anchored so a legitimate module named main is not hidden.
+/main
+
+# Python packaging/build artifacts
+build/
+dist/
+*.egg-info/
+src/*.egg-info/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# macOS clutter / one-off scratch files -- never intentional repo content
+.DS_Store
+paralome.err

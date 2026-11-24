@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paralome"
+# The version is read from src/paralome/version.py, its one source. setuptools
+# AST-parses the assignment; it does not import paralome, so this works with no
+# dependencies present at build time.
+dynamic = ["version"]
+description = "A reproducible, checkpointed HPC workflow framework for omics analysis"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "AGPL-3.0-only"}
+authors = [
+  {name = "Kenneth L. Jones", email = "Ken.Jones@bioinformaticsolutions.com"}
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "License :: OSI Approved :: GNU Affero General Public License v3",
+  "Programming Language :: Python :: 3",
+  "Operating System :: POSIX :: Linux",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+  # Typer carries its own click (typer._click), so click is not a dependency.
+  # Paralome imports nothing from click; it uses typer's public names
+  # (typer.Context, typer.echo, typer.core.TyperGroup / TyperOption).
+  # Typer 0.27 needs Python 3.10, hence the floor above.
+  #
+  # The ceiling is deliberate: typer is pre-1.0 and its minor releases change
+  # behaviour, so a fresh install gets the typer that was tested.
+  "typer>=0.27,<0.28",
+  # RICH IS WHAT DRAWS THE HELP. Without one typer can drive, the
+  # rich_help_panel groupings SILENTLY VANISH: `paralome DNA --help` still lists
+  # every option, as one undifferentiated block. The floor is typer 0.27's own.
+  "rich>=13.8,<16",
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "pandas>=1.5",
+  "statsmodels>=0.14",
+  # plotly 5 and 6 both work; there is no ceiling.
+  "plotly>=5.0",
+  "matplotlib>=3.7",
+  "MOODS-python>=1.9.4.1",
+  "pysam>=0.21",
+  # The output stages build their Parquet tables in DuckDB (OmicView reads them with DuckDB-WASM).
+  # Below 2: DuckDB 2.0.0's build dies with "Illegal instruction" on CPUs with AVX but no AVX2.
+  # Lift the cap when a 2.x build runs on AVX-only CPUs.
+  "duckdb>=1.4,<2",
+  # the cell export writes an .h5ad (AnnData) file with h5py; anndata
+  # itself is not needed to write one.
+  "h5py>=3.1"
+]
+
+[project.scripts]
+paralome = "paralome.cli:main"
+# The machine-facing entry point. Registered as its own console
+# script so `paralome --help` cannot show a command that only the supervisor or
+# a generated sbatch body ever invokes.
+paralome-worker = "paralome.worker:main"
+# The wide channel a fused alignment task needs between fastp and
+# STAR. Its own console script because STAR invokes it by name, as
+# --readFilesCommand, in a generated sbatch body.
+paralome-buffer = "paralome.buffer:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "paralome.version.__version__"}
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"paralome.config" = ["*.json"]
+"paralome.atac.r" = ["*.R"]
+# The trajectories stage's Monocle3 and Slingshot scripts.
+"paralome.singlecell.r" = ["*.R"]
+# The user manual and the AI briefing travel INSIDE the wheel. The wheel is what
+# gets handed to a collaborator or an assistant, and anything under the
+# repository's docs/ folder cannot reach it -- packages are found only under
+# src/.
+"paralome.docs" = ["*.md"]
+# No viewer pages are packaged; the viewers are OmicView's.

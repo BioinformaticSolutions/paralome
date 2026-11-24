@@ -1,0 +1,70 @@
+Paralome
+Copyright (C) 2026 Kenneth L. Jones
+ORCID: https://orcid.org/0009-0000-1289-4652
+
+Kenneth L. Jones is the sole author and sole copyright holder of this software.
+Copyright is held by him personally and not by Bioinformatic Solutions, LLC.
+
+DUAL LICENSED
+=============
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License, version 3, as published by
+the Free Software Foundation. See the LICENSE file for the full text.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+The AGPL permits use, study, modification and redistribution, including for
+research. It requires that any modified version which is distributed -- or made
+available to others over a network -- be released in full under the same
+licence.
+
+Alternatively, a separate commercial licence is available for uses that the
+AGPL's conditions do not suit, including incorporating Paralome into a product
+or service without releasing the corresponding source. Contact:
+
+    Kenneth L. Jones
+    Ken.Jones@bioinformaticsolutions.com
+
+THIRD-PARTY COMPONENTS
+======================
+
+Paralome depends on the following packages, which are installed separately and
+are not distributed as part of this software. Their own licences apply to them.
+
+    numpy, scipy, pandas, scikit-learn, matplotlib   BSD
+    statsmodels                                      BSD
+    plotly                                           MIT
+    openpyxl                                         MIT
+    pysam                                            MIT
+    typer, click                                     MIT
+    MOODS-python                                     dual: GPL-3 or Biopython
+
+MOODS-python is taken under the Biopython licence arm, not the GPL-3 arm. This
+is deliberate and load-bearing: taking it under GPL-3 would impose copyleft
+obligations on Paralome as a whole and would make a separate commercial licence
+impossible to offer.
+
+The single-cell analyses invoke R (Seurat, Signac, Matrix) as a separate
+process through Rscript. Those packages are MIT licensed, are installed by the
+user into their own R library, and are not distributed with Paralome.
+
+THIRD-PARTY SOFTWARE AND DATA: THE USER'S RESPONSIBILITY
+========================================================
+
+Paralome runs software and downloads data that belong to others: programs the
+user installs (for example STAR, ANNOVAR, R and its packages, and Evidome) and
+reference data fetched at run time (genome builds, annotation and variant
+databases, gene sets, regulator and other knowledge databases, including those
+Evidome fetches when Paralome runs it). None of them is distributed with this
+software, and each is governed by its own licence and terms of use.
+
+Whether a particular use of any of them is permitted, including whether a
+use counts as commercial under its terms, is for the user to determine and
+comply with. The author makes no representation that any such use is
+licensed, and accepts no liability for a user's use of third-party software
+or data, which is at the user's own risk. This is in addition to the
+disclaimer of warranty and limitation of liability in sections 15 and 16 of
+the GNU Affero General Public License.

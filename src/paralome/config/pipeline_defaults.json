@@ -1,0 +1,18 @@
+{
+  "annotation": {
+    "engine": "annovar"
+  },
+  "filtering": {
+    "segregation_profile": "family-segregating"
+  },
+  "pipeline": {
+    "profile": "DNA"
+  },
+  "resources": {
+    "backend": "slurm",
+    "jobs": 0,
+    "mark_duplicates": true,
+    "remove_duplicates": false,
+    "threads": 8
+  }
+}

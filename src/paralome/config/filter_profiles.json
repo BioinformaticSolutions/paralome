@@ -1,0 +1,210 @@
+{
+  "profiles": {
+    "family-segregating": {
+      "candidate_classes": [
+        "affected_only",
+        "affected_enriched",
+        "shared_affected",
+        "possible_dominant",
+        "possible_recessive",
+        "possible_de_novo"
+      ],
+      "description": "Prioritize variants with affected-family segregation support.",
+      "min_segregation_score": 0.5,
+      "mode": "family",
+      "quality": {
+        "family": {
+          "max_unaffected_carriers": null,
+          "min_affected_carriers": 1,
+          "min_sequenced_samples": 1,
+          "min_total_carriers": 1,
+          "require_proband": false
+        },
+        "genotype": {
+          "min_alt_fraction_het": 0.2,
+          "min_alt_fraction_hom": 0.75,
+          "min_alt_reads": 3,
+          "min_dp": 8,
+          "min_gq": 20,
+          "min_ref_reads": 0
+        },
+        "site": {
+          "allowed_filters": [
+            "PASS",
+            "."
+          ],
+          "max_missing_rate": 0.5,
+          "min_qual": 20,
+          "min_site_alt_reads": 5,
+          "min_site_depth": 30,
+          "require_pass": false
+        }
+      },
+      "rarity": "any",
+      "segregating_classes": [
+        "affected_only",
+        "affected_enriched",
+        "shared_affected",
+        "possible_dominant",
+        "possible_recessive",
+        "possible_de_novo"
+      ]
+    },
+    "germline-common": {
+      "description": "Common germline/polygenic candidate prioritization.",
+      "min_segregation_score": 0.0,
+      "mode": "germline",
+      "population": {
+        "max_gnomad_af": 0.5,
+        "min_gnomad_af": 0.01
+      },
+      "quality": {
+        "genotype": {
+          "min_alt_fraction_het": 0.2,
+          "min_alt_fraction_hom": 0.75,
+          "min_alt_reads": 3,
+          "min_dp": 8,
+          "min_gq": 15
+        },
+        "site": {
+          "max_missing_rate": 0.1,
+          "min_qual": 20,
+          "min_site_alt_reads": 5,
+          "min_site_depth": 30,
+          "require_pass": false
+        }
+      },
+      "rarity": "common"
+    },
+    "germline-rare": {
+      "annotation": {
+        "exclude_clinvar": [
+          "Benign",
+          "Likely_benign"
+        ],
+        "impact": [
+          "HIGH",
+          "MODERATE"
+        ]
+      },
+      "candidate_classes": [
+        "affected_only",
+        "shared_affected",
+        "possible_dominant",
+        "possible_recessive",
+        "possible_de_novo"
+      ],
+      "description": "Rare germline variant prioritization.",
+      "min_segregation_score": 0.5,
+      "mode": "germline",
+      "population": {
+        "max_gnomad_af": 0.01
+      },
+      "quality": {
+        "genotype": {
+          "min_alt_fraction_het": 0.25,
+          "min_alt_fraction_hom": 0.8,
+          "min_alt_reads": 4,
+          "min_dp": 10,
+          "min_gq": 20
+        },
+        "site": {
+          "max_missing_rate": 0.25,
+          "min_qual": 30,
+          "min_site_alt_reads": 5,
+          "min_site_depth": 30,
+          "require_pass": true
+        }
+      },
+      "rarity": "rare"
+    },
+    "somatic-common": {
+      "description": "Somatic candidate prioritization without strict rarity. Not usable yet : its tumor and normal allele-fraction thresholds need tumor/normal sample roles, which Paralome does not read, so filtering refuses it rather than apply it without them.",
+      "mode": "somatic",
+      "quality": {
+        "genotype": {
+          "max_alt_fraction_normal": 0.01,
+          "min_alt_fraction_tumor": 0.03,
+          "min_alt_reads": 5,
+          "min_dp": 20
+        },
+        "site": {
+          "min_qual": 20,
+          "min_site_alt_reads": 5,
+          "min_site_depth": 50,
+          "require_pass": true
+        }
+      },
+      "rarity": "common"
+    },
+    "somatic-rare": {
+      "description": "Rare somatic candidate prioritization. Not usable yet : its tumor and normal allele-fraction thresholds need tumor/normal sample roles, which Paralome does not read, so filtering refuses it rather than apply it without them.",
+      "mode": "somatic",
+      "population": {
+        "max_gnomad_af": 0.001
+      },
+      "quality": {
+        "genotype": {
+          "max_alt_fraction_normal": 0.01,
+          "min_alt_fraction_tumor": 0.03,
+          "min_alt_reads": 5,
+          "min_dp": 20
+        },
+        "site": {
+          "min_qual": 20,
+          "min_site_alt_reads": 5,
+          "min_site_depth": 50,
+          "require_pass": true
+        }
+      },
+      "rarity": "rare"
+    },
+    "unrelated-probands": {
+      "description": "Independent affected probands with no relatives in the run . Keeps every rare variant carried by at least one proband, coding or not: promoter, UTR, intronic and flanking variants from padded genes are reported, not dropped for lacking a protein change.",
+      "mode": "cohort",
+      "rarity": "rare",
+      "scope": [
+        "segregation_pass",
+        "segregation_partial"
+      ],
+      "candidate_classes": [
+        "affected_only",
+        "affected_enriched",
+        "shared_affected"
+      ],
+      "min_segregation_score": 0.0,
+      "population": {
+        "max_gnomad_af": 0.01
+      },
+      "annotation": {
+        "exclude_clinvar": [
+          "Benign",
+          "Likely_benign"
+        ]
+      },
+      "quality": {
+        "family": {
+          "min_affected_carriers": 1,
+          "max_unaffected_carriers": null
+        },
+        "genotype": {
+          "min_alt_fraction_het": 0.2,
+          "min_alt_fraction_hom": 0.75,
+          "min_alt_reads": 3,
+          "min_dp": 8,
+          "min_gq": 20
+        },
+        "site": {
+          "allowed_filters": [
+            "PASS",
+            "."
+          ],
+          "max_missing_rate": 0.5,
+          "min_qual": 20,
+          "min_site_alt_reads": 3,
+          "require_pass": false
+        }
+      }
+    }
+  }
+}

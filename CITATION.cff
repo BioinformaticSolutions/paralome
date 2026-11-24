@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use Paralome, please cite it as below."
+title: "Paralome: a reproducible, checkpointed HPC workflow framework for omics analysis"
+type: software
+authors:
+  - family-names: Jones
+    given-names: Kenneth L.
+    orcid: "https://orcid.org/0009-0000-1289-4652"
+    email: Ken.Jones@bioinformaticsolutions.com
+license: AGPL-3.0-only
+repository-code: "https://github.com/BioinformaticSolutions/paralome"
+url: "https://www.bioinformaticsolutions.com/paralome.html"
+abstract: >-
+  Paralome is a reproducible, checkpointed framework for omics analysis that
+  runs on an HPC cluster (SLURM) or a single machine. One command sets up an
+  analysis and submits it stage by stage, and every stage is checkpointed, so
+  an interrupted or extended analysis resumes rather than restarts.
+  Independent pipelines -- bulk RNA-seq and ATAC-seq; exome and whole-genome
+  variant calling with family segregation; single-cell RNA and single-nucleus
+  ATAC, including spatial, from curated Seurat objects; and proteomics,
+  phosphoproteomics and Olink -- share one checkpoint backbone and one
+  statistics module. Differential statistics (Student's t, paired t,
+  multi-factor ANOVA and linear models, on pseudobulk or individual cells) are
+  stated by the user on every run. Single-cell analyses add lineage
+  trajectories, and results carry functional evidence from Evidome and are
+  delivered as self-describing archives, written for an AI agent to interpret
+  and for people to open in OmicView.
+keywords:
+  - bioinformatics
+  - HPC
+  - SLURM
+  - workflow
+  - pipeline
+  - RNA-seq
+  - ATAC-seq
+  - single-cell
+  - spatial transcriptomics
+  - variant calling
+  - proteomics
+  - phosphoproteomics
+  - Olink
+  - trajectories
+  - functional evidence
+
+# No version here: an archive takes the version from the release's git tag, so
+# this file never states a stale one. The concept DOI is added once the first
+# release is archived.
